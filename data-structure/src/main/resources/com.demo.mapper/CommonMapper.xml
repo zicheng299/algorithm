@@ -6,4 +6,25 @@
         SELECT
             ifnull((SELECT DISTINCT salary FROM employee ORDER BY salary DESC LIMIT 1,1) , NULL ) AS secondSalary
     </select>
+    <!--    查询排名 使用变量@XXX 赋值操作 := -->
+    <select id="selectRank" resultType="java.lang.Integer">
+        SELECT s.id,
+               s.score,
+               IF(s.score = @score, @rank := @rank, @rank := @rank + 1) as 'rank',
+               @score := s.score
+        FROM
+            scores s,
+--             设置两个变量，:= 赋值
+            (SELECT @score := null, @rank := 0) r
+        ORDER BY s.score DESC
+    </select>
+    <!--    查询【连续】出现超过三次的数字-->
+    <select id="selectContinuousNum" resultType="java.lang.Integer">
+        SELECT DISTINCT t.num
+        FROM (SELECT l.num,
+                     IF(l.num = @num, @count := @count + 1, @count := 1) AS count,
+		             @num := l.num
+              FROM LOGS l, ( SELECT @num := NULL, @count := 0 ) c) t
+        WHERE t.count >= 3
+    </select>
 </mapper>

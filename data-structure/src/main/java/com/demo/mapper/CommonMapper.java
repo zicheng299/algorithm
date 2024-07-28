@@ -8,4 +8,14 @@ public interface CommonMapper {
 
     BigDecimal selectSecondSalary();
 
+    Integer selectRank();
+
+    Integer selectContinuousNum();
+
+
+
+
+
+
+
 }
