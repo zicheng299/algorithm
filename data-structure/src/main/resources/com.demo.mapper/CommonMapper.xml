@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.CommonMapper">
+    <!--    查询第二名 关键字 limit 1,1-->
+    <select id="selectSecondSalary" resultType="java.math.BigDecimal">
+        SELECT
+            ifnull((SELECT DISTINCT salary FROM employee ORDER BY salary DESC LIMIT 1,1) , NULL ) AS secondSalary
+    </select>
+</mapper>
