@@ -1,7 +1,6 @@
-package com.demo.test;
+package com.demo.service;
 
 import com.demo.domain.ListNode;
-import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Test;
 
 import java.util.Arrays;

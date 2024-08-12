@@ -12,6 +12,10 @@ public interface CommonMapper {
 
     Integer selectContinuousNum();
 
+    String selectMaxSalary();
+
+    String selectThirdSalary();
+
 
 
 

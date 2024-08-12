@@ -27,4 +27,40 @@
               FROM LOGS l, ( SELECT @num := NULL, @count := 0 ) c) t
         WHERE t.count >= 3
     </select>
+<!--    查询每个部门薪资最高的人-->
+    <select id="selectMaxSalary" resultType="java.lang.String">
+        select t2.name as Department,
+               t1.name as Employee,
+               t1.salary
+        from employee t1
+        inner join department t2 on t1.departmentId = t2.id
+        where (t1.departmentId, t1.salary) in
+              (select departmentId,
+                      max(salary)
+               from employee
+               group by departmentId)
+    </select>
+<!--    查询部门薪资前三的员工
+难点：排名前三等于部门中薪资大于他的人不超过3个（注意薪资去重）
+-->
+    <select id="selectThirdSalary" resultType="java.lang.String">
+        select
+        t2.name as Department,
+        t1.name as Employee,
+        t1.salary
+        from
+        employee t1,
+        department t2
+        where t1.department_id = t2.id
+        and t1.id in(
+        select
+        e1.id
+        from
+        employee e1
+        left join employee e2 on e1.department_id = e2.department_id and e2.salary > e1.salary
+        group by e1.id
+        having count(distinct e2.salary) &lt; 3
+        )
+
+    </select>
 </mapper>

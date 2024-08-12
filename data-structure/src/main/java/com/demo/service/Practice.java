@@ -1,9 +1,7 @@
-package com.demo.test;
+package com.demo.service;
 
 import com.demo.domain.Stack;
 import org.junit.Test;
-
-import java.util.Arrays;
 
 public class Practice {
 
